@@ -16,13 +16,11 @@ builder.Services.AddDbContext<ServerDbContext>(
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.WithOrigins("https://asoiuteacher.netlify.app/");
-        });
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:3000/").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
 });
-
 
 var app = builder.Build();
 
@@ -33,7 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors();
+app.UseCors(); 
 
 app.UseHttpsRedirection();
 
