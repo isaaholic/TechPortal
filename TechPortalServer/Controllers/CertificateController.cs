@@ -55,6 +55,7 @@ namespace TechPortalServer.Controllers
                 return NotFound("Certificate not found");
 
             uCertificate.Name = certificate.Name;
+            uCertificate.Link = certificate.Link;
 
 
             _context.Certificates.Update(uCertificate);
