@@ -37,6 +37,10 @@ namespace TechPortalServer.Controllers
                 Id= work.Id,
                 UserId= work.UserId,
                 Name= work.Name,
+                Date=work.Date,
+                Catagory=work.Catagory,
+                Link=work.Link,
+                Country=work.Country,
             };
             await _context.ScientificWorks.AddAsync(newWork);
             await _context.SaveChangesAsync();
