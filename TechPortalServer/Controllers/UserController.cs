@@ -60,6 +60,30 @@ namespace TechPortalServer.Controllers
             return Ok(user.ToList()[0]);
         }
 
+        [HttpPut("changemail")]
+        public async Task<ActionResult<User>> UpdateMail(Guid id,string mail)
+        {
+           var uUser = _context.Users.Find(id);
+           if (uUser == null) return NotFound();
+
+           uUser.Email= mail;
+
+            _context.Users.Update(uUser);
+            return Ok(uUser);
+        }
+
+        [HttpPut("changemail")]
+        public async Task<ActionResult<User>> UpdatePhoto(Guid id,string photo)
+        {
+           var uUser = _context.Users.Find(id);
+           if (uUser == null) return NotFound();
+
+           uUser.ImageUrl= photo;
+
+            _context.Users.Update(uUser);
+            return Ok(uUser);
+        }
+
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(User user)
         {
