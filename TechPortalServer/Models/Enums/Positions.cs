@@ -1,6 +1,6 @@
 ﻿namespace TechPortalServer.Models.Enums
 {
-    public enum Position
+    public enum Positions
     {
         Rector,
         ProRector,

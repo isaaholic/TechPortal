@@ -10,8 +10,9 @@ namespace TechPortalServer.Models
         public byte[] PasswordSalt { get; set; }
         public string ImageUrl { get; set; }
         public string FullName { get; set; }
-        //public DateTime BirthDate { get; set; }
-        public Position Position { get; set; }
+        public Positions Position { get; set; }
+        public Faculties Faculty { get; set; }
+        public Departments Department { get; set; }
         public string AcademicDegree { get; set; }
         public string Phone { get; set; }
         public string ResearchArea { get; set; }
