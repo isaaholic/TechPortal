@@ -62,5 +62,18 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetProject(uProject.UserId);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteProject(int id)
+        {
+            var project = _context.Projects.Find(id);
+
+            if (project == null)
+                return NotFound("Project doesn't exist");
+
+            _context.Remove(project);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

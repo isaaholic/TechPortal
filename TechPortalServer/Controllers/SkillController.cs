@@ -61,5 +61,18 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetSkill(uSkill.UserId);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteSkill(int id)
+        {
+            var skill = _context.Skills.Find(id);
+
+            if (skill == null)
+                return NotFound("Skill doesn't exist");
+
+            _context.Remove(skill);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

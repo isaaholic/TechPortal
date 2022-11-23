@@ -63,5 +63,18 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetInvention(uInvention.UserId);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteInvention(int id)
+        {
+            var invention = _context.Inventions.Find(id);
+
+            if (invention == null)
+                return NotFound("Invention doesn't exist");
+
+            _context.Remove(invention);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

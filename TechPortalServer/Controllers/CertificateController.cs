@@ -62,5 +62,18 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetCertificate(uCertificate.UserId);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteCertificate(int id)
+        {
+            var certificate = _context.Certificates.Find(id);
+
+            if (certificate == null)
+                return NotFound("Skill doesn't exist");
+
+            _context.Remove(certificate);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

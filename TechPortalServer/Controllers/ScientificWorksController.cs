@@ -69,5 +69,18 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetWork(uWork.UserId);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteWork(int id)
+        {
+            var work = _context.ScientificWorks.Find(id);
+
+            if (work == null)
+                return NotFound("Work doesn't exist");
+
+            _context.Remove(work);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

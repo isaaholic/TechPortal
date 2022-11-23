@@ -66,5 +66,18 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetDiplom(uDiplom.UserId);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteDiplom(int id)
+        {
+            var diplom = _context.Diploms.Find(id);
+
+            if (diplom == null)
+                return NotFound("Diplom doesn't exist");
+
+            _context.Remove(diplom);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

@@ -64,5 +64,18 @@ namespace TechPortalServer.Controllers
             return await GetPatent(uPatent.UserId);
         }
 
+        [HttpDelete]
+        public async Task<ActionResult> DeletePatent(int id)
+        {
+            var patent = _context.Patents.Find(id);
+
+            if (patent == null)
+                return NotFound("Patents doesn't exist");
+
+            _context.Remove(patent);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }
