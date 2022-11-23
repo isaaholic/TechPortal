@@ -37,6 +37,7 @@ namespace TechPortalServer.Controllers
                 Id = project.Id,
                 UserId = project.UserId,
                 Name = project.Name,
+                About= project.About,
             };
             await _context.Projects.AddAsync(newProject);
             await _context.SaveChangesAsync();
@@ -55,7 +56,7 @@ namespace TechPortalServer.Controllers
                 return NotFound("Project not found");
 
             uProject.Name = project.Name;
-
+            uProject.About= project.About;
 
             _context.Projects.Update(uProject);
             await _context.SaveChangesAsync();

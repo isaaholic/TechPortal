@@ -27,7 +27,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Invention>>> AddInvention(EducationDto invention)
+        public async Task<ActionResult<List<Invention>>> AddInvention(Invention invention)
         {
             if (invention == null)
                 return BadRequest("Invention format is wrong");
@@ -37,6 +37,7 @@ namespace TechPortalServer.Controllers
                 Id= invention.Id,
                 UserId= invention.UserId,
                 Name= invention.Name,
+                About=invention.About
             };
             await _context.Inventions.AddAsync(newInvention);
             await _context.SaveChangesAsync();
@@ -44,7 +45,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Invention>>> UpdateInvention(int id, EducationDto invention)
+        public async Task<ActionResult<List<Invention>>> UpdateInvention(int id, InventionDto invention)
         {
             if (invention == null)
                 return BadRequest("Experience format is wrong");
@@ -55,6 +56,7 @@ namespace TechPortalServer.Controllers
                 return NotFound("Experience not found");
 
             uInvention.Name = invention.Name;
+            uInvention.About = invention.About;
 
 
             _context.Inventions.Update(uInvention);

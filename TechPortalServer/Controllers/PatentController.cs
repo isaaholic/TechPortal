@@ -37,6 +37,7 @@ namespace TechPortalServer.Controllers
                 Id= patent.Id,
                 UserId= patent.UserId,
                 Name= patent.Name,
+                About=patent.About
             };
             await _context.Patents.AddAsync(newPatent);
             await _context.SaveChangesAsync();
@@ -55,6 +56,7 @@ namespace TechPortalServer.Controllers
                 return NotFound("Patent not found");
 
             uPatent.Name = patent.Name;
+            uPatent.About = patent.About;
 
 
             _context.Patents.Update(uPatent);

@@ -37,6 +37,7 @@ namespace TechPortalServer.Controllers
                 Id = experience.Id,
                 UserId = experience.UserId,
                 Name = experience.Name,
+                Range=experience.Range
             };
             await _context.WorkExperiences.AddAsync(newExperience);
             await _context.SaveChangesAsync();
@@ -55,6 +56,7 @@ namespace TechPortalServer.Controllers
                 return NotFound("Experience not found");
 
             uExperience.Name = experience.Name;
+            uExperience.Range = experience.Range;
 
 
             _context.WorkExperiences.Update(uExperience);
