@@ -27,7 +27,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Invention>>> AddInvention(Invention invention)
+        public async Task<ActionResult<List<Invention>>> AddInvention(InventionDto invention)
         {
             if (invention == null)
                 return BadRequest("Invention format is wrong");
