@@ -27,7 +27,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Skill>>> AddEducation(SkillDto skill)
+        public async Task<ActionResult<List<Skill>>> AddSkill(SkillDto skill)
         {
             if (skill == null)
                 return BadRequest("Education format is wrong");
@@ -44,7 +44,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Skill>>> UpdateEducation(int id, SkillDto skill)
+        public async Task<ActionResult<List<Skill>>> UpdateSkill(int id, SkillDto skill)
         {
             if (skill == null)
                 return BadRequest("Experience format is wrong");

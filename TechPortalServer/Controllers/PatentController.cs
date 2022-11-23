@@ -43,7 +43,8 @@ namespace TechPortalServer.Controllers
             return await GetPatent(newPatent.UserId);
         }
 
-        public async Task<ActionResult<List<Patent>>> UpdateEducation(int id,PatentDto patent)
+        [HttpPut]
+        public async Task<ActionResult<List<Patent>>> UpdatePatent(int id,PatentDto patent)
         {
             if (patent == null)
                 return BadRequest("Patent format is wrong");

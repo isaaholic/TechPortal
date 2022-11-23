@@ -27,16 +27,16 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<WorkExperience>>> AddEducation(WorkExperienceDto experience)
+        public async Task<ActionResult<List<WorkExperience>>> AddExperience(WorkExperienceDto experience)
         {
             if (experience == null)
                 return BadRequest("Experience format is wrong");
 
             var newExperience = new WorkExperience()
             {
-                Id= experience.Id,
-                UserId= experience.UserId,
-                Name= experience.Name,
+                Id = experience.Id,
+                UserId = experience.UserId,
+                Name = experience.Name,
             };
             await _context.WorkExperiences.AddAsync(newExperience);
             await _context.SaveChangesAsync();
@@ -44,7 +44,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<WorkExperience>>> UpdateEducation(int id, WorkExperienceDto experience)
+        public async Task<ActionResult<List<WorkExperience>>> UpdateExperince(int id, WorkExperienceDto experience)
         {
             if (experience == null)
                 return BadRequest("Experience format is wrong");
@@ -55,11 +55,24 @@ namespace TechPortalServer.Controllers
                 return NotFound("Experience not found");
 
             uExperience.Name = experience.Name;
-            
+
 
             _context.WorkExperiences.Update(uExperience);
             await _context.SaveChangesAsync();
             return await GetExperience(uExperience.UserId);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteExperience(int id)
+        {
+            var experience = _context.WorkExperiences.Find(id);
+
+            if (experience == null)
+                return NotFound("Experience doesn't exist");
+
+            _context.Remove(experience);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
