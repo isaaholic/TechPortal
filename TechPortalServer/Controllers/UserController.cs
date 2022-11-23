@@ -72,7 +72,7 @@ namespace TechPortalServer.Controllers
             return Ok(uUser);
         }
 
-        [HttpPut("changemail")]
+        [HttpPut("changeimage")]
         public async Task<ActionResult<User>> UpdatePhoto(Guid id,string photo)
         {
            var uUser = _context.Users.Find(id);
