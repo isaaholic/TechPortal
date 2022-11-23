@@ -42,5 +42,24 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetSkill(newSkill.UserId);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<Skill>>> UpdateEducation(int id, SkillDto skill)
+        {
+            if (skill == null)
+                return BadRequest("Experience format is wrong");
+
+            var uSkill = _context.Skills.Find(id);
+
+            if (uSkill == null)
+                return NotFound("Experience not found");
+
+            uSkill.Name = skill.Name;
+
+
+            _context.Skills.Update(uSkill);
+            await _context.SaveChangesAsync();
+            return await GetSkill(uSkill.UserId);
+        }
     }
 }

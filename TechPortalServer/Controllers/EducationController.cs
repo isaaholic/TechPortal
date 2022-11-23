@@ -43,5 +43,25 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetEducation(newEducation.UserId);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<Education>>> UpdateEducation(int id, EducationDto education)
+        {
+            if (education == null)
+                return BadRequest("Experience format is wrong");
+
+            var uEducation = _context.Educations.Find(id);
+
+            if (uEducation == null)
+                return NotFound("Experience not found");
+
+            uEducation.Name = education.Name;
+            uEducation.Range= education.Range;
+
+
+            _context.Educations.Update(uEducation);
+            await _context.SaveChangesAsync();
+            return await GetEducation(uEducation.UserId);
+        }
     }
 }

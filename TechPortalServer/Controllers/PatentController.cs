@@ -19,7 +19,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Patent>>> GetEducation(Guid id)
+        public async Task<ActionResult<List<Patent>>> GetPatent(Guid id)
         {
             var patents = await _context.Patents
                 .Where(e => e.UserId == id).ToListAsync();
@@ -27,10 +27,10 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Patent>>> AddEducation(PatentDto patent)
+        public async Task<ActionResult<List<Patent>>> AddPatent(PatentDto patent)
         {
             if (patent == null)
-                return BadRequest("Education format is wrong");
+                return BadRequest("Patent format is wrong");
 
             var newPatent = new Patent()
             {
@@ -40,7 +40,26 @@ namespace TechPortalServer.Controllers
             };
             await _context.Patents.AddAsync(newPatent);
             await _context.SaveChangesAsync();
-            return await GetEducation(newPatent.UserId);
+            return await GetPatent(newPatent.UserId);
         }
+
+        public async Task<ActionResult<List<Patent>>> UpdateEducation(int id,PatentDto patent)
+        {
+            if (patent == null)
+                return BadRequest("Patent format is wrong");
+
+            var uPatent = _context.Patents.Find(id);
+
+            if (uPatent == null)
+                return NotFound("Patent not found");
+
+            uPatent.Name = patent.Name;
+
+
+            _context.Patents.Update(uPatent);
+            await _context.SaveChangesAsync();
+            return await GetPatent(uPatent.UserId);
+        }
+
     }
 }

@@ -30,17 +30,36 @@ namespace TechPortalServer.Controllers
         public async Task<ActionResult<List<Project>>> AddProject(ProjectDto project)
         {
             if (project == null)
-                return BadRequest("Education format is wrong");
+                return BadRequest("Project format is wrong");
 
             var newProject = new Project()
             {
-                Id= project.Id,
-                UserId= project.UserId,
-                Name= project.Name,
+                Id = project.Id,
+                UserId = project.UserId,
+                Name = project.Name,
             };
             await _context.Projects.AddAsync(newProject);
             await _context.SaveChangesAsync();
             return await GetProject(newProject.UserId);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<List<Project>>> UpdateProject(int id, ProjectDto project)
+        {
+            if (project == null)
+                return BadRequest("Project format is wrong");
+
+            var uProject = _context.Projects.Find(id);
+
+            if (uProject == null)
+                return NotFound("Project not found");
+
+            uProject.Name = project.Name;
+
+
+            _context.Projects.Update(uProject);
+            await _context.SaveChangesAsync();
+            return await GetProject(uProject.UserId);
         }
     }
 }

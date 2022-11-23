@@ -34,14 +34,32 @@ namespace TechPortalServer.Controllers
 
             var newCertificate = new Certificate()
             {
-                Id= certificate.Id,
-                UserId= certificate.UserId,
-                Name= certificate.Name,
-                Link=certificate.Link,
+                Id = certificate.Id,
+                UserId = certificate.UserId,
+                Name = certificate.Name,
+                Link = certificate.Link,
             };
             await _context.Certificates.AddAsync(newCertificate);
             await _context.SaveChangesAsync();
             return await GetCertificate(newCertificate.UserId);
+        }
+        [HttpPut]
+        public async Task<ActionResult<List<Certificate>>> UpdateCertificate(int id, CertificateDto certificate)
+        {
+            if (certificate == null)
+                return BadRequest("Certificate format is wrong");
+
+            var uCertificate = _context.Certificates.Find(id);
+
+            if (uCertificate == null)
+                return NotFound("Certificate not found");
+
+            uCertificate.Name = certificate.Name;
+
+
+            _context.Certificates.Update(uCertificate);
+            await _context.SaveChangesAsync();
+            return await GetCertificate(uCertificate.UserId);
         }
     }
 }

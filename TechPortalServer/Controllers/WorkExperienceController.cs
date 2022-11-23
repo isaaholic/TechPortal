@@ -30,17 +30,36 @@ namespace TechPortalServer.Controllers
         public async Task<ActionResult<List<WorkExperience>>> AddEducation(WorkExperienceDto experience)
         {
             if (experience == null)
-                return BadRequest("Education format is wrong");
+                return BadRequest("Experience format is wrong");
 
-            var newExperience = new Education()
+            var newExperience = new WorkExperience()
             {
                 Id= experience.Id,
                 UserId= experience.UserId,
                 Name= experience.Name,
             };
-            await _context.Educations.AddAsync(newExperience);
+            await _context.WorkExperiences.AddAsync(newExperience);
             await _context.SaveChangesAsync();
             return await GetExperience(newExperience.UserId);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<List<WorkExperience>>> UpdateEducation(int id, WorkExperienceDto experience)
+        {
+            if (experience == null)
+                return BadRequest("Experience format is wrong");
+
+            var uExperience = _context.WorkExperiences.Find(id);
+
+            if (uExperience == null)
+                return NotFound("Experience not found");
+
+            uExperience.Name = experience.Name;
+            
+
+            _context.WorkExperiences.Update(uExperience);
+            await _context.SaveChangesAsync();
+            return await GetExperience(uExperience.UserId);
         }
     }
 }

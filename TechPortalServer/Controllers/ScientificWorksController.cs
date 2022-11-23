@@ -42,5 +42,28 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetWork(newWork.UserId);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<ScientificWork>>> UpdateWork(int id, ScientificWork work)
+        {
+            if (work == null)
+                return BadRequest("Work format is wrong");
+
+            var uWork = _context.ScientificWorks.Find(id);
+
+            if (uWork == null)
+                return NotFound("Work not found");
+
+            uWork.Name = work.Name;
+            uWork.Date = work.Date;
+            uWork.Catagory = work.Catagory;
+            uWork.Country = work.Country;
+            uWork.Link = work.Link;
+
+
+            _context.ScientificWorks.Update(uWork);
+            await _context.SaveChangesAsync();
+            return await GetWork(uWork.UserId);
+        }
     }
 }

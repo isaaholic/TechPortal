@@ -45,5 +45,26 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetDiplom(newDiplom.UserId);
         }
+        [HttpPut]
+        public async Task<ActionResult<List<Diplom>>> UpdateDiplom(int id,DiplomDto diplom)
+        {
+            if (diplom == null)
+                return BadRequest("Diplom format is wrong");
+
+            var uDiplom = _context.Diploms.Find(id);
+
+            if (uDiplom == null)
+                return NotFound("Diplom not found");
+
+            uDiplom.Catagory = diplom.Catagory;
+            uDiplom.Degree = diplom.Degree;
+            uDiplom.Specialization = diplom.Specialization;
+            uDiplom.University = diplom.University;
+
+
+            _context.Diploms.Update(uDiplom);
+            await _context.SaveChangesAsync();
+            return await GetDiplom(uDiplom.UserId);
+        }
     }
 }

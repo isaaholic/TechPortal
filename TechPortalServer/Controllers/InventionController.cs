@@ -42,5 +42,24 @@ namespace TechPortalServer.Controllers
             await _context.SaveChangesAsync();
             return await GetInvention(newInvention.UserId);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<Invention>>> UpdateInvention(int id, EducationDto invention)
+        {
+            if (invention == null)
+                return BadRequest("Experience format is wrong");
+
+            var uInvention = _context.Inventions.Find(id);
+
+            if (uInvention == null)
+                return NotFound("Experience not found");
+
+            uInvention.Name = invention.Name;
+
+
+            _context.Inventions.Update(uInvention);
+            await _context.SaveChangesAsync();
+            return await GetInvention(uInvention.UserId);
+        }
     }
 }
