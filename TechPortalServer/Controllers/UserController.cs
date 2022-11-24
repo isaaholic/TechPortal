@@ -126,7 +126,7 @@ namespace TechPortalServer.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
-            var existingUser = await _context.Users.FindAsync(request.Id);
+            var existingUser = _context.Users.ToList().Find(u=>u.UserName==request.UserName);
 
             if (existingUser == null)
             {
