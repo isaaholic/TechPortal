@@ -48,7 +48,7 @@ namespace TechPortalServer.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<ScientificWork>>> UpdateWork(int id, ScientificWork work)
+        public async Task<ActionResult<List<ScientificWork>>> UpdateWork(int id, ScientificWorkDto work)
         {
             if (work == null)
                 return BadRequest("Work format is wrong");
